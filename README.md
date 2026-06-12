@@ -1,58 +1,79 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ⚡ Master Quiz Voice Generator — Class of Champions
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi web berbasis Laravel untuk melakukan **Text-to-Speech (TTS)** bergaya *voiceover* kompetisi, terinspirasi oleh announcer acara *Clash of Champions*. Aplikasi ini menggunakan teknologi Microsoft Azure Edge TTS secara gratis melalui skrip Python `edge-tts`.
 
-## About Laravel
+## ✨ Fitur Utama
+- **Template Naskah Bawaan**: Berbagai preset naskah kompetisi seperti Pembukaan, Pembacaan Soal, Hitung Mundur, dan Pengumuman Juara.
+- **Pengaturan Suara Lanjutan**: Bisa mengatur tingkat *Pitch* (tinggi-rendah nada) dan *Speed* (kecepatan bicara) untuk memberikan efek suara yang dramatis dan berwibawa.
+- **Scrubbing Audio**: Memutar dan menggeser (*drag/scrub*) hasil audio yang sudah di-generate secara langsung di halaman web tanpa harus menyimpannya terlebih dahulu.
+- **Download MP3**: Unduh hasil audio dengan mudah.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🛠️ Persyaratan Sistem (Prerequisites)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Sebelum melakukan instalasi, pastikan komputermu sudah memiliki:
+1. **PHP** (minimal versi 8.2) & **Composer**
+2. **Python** (minimal versi 3.7) beserta **pip**
+3. **Git** (Opsional, untuk pull/clone dari GitHub)
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🚀 Cara Instalasi
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Ikuti langkah-langkah di bawah ini untuk menginstal project ini di komputermu:
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
+### 1. Kloning Repository
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/miomidev/Text-To-Voice.git
+cd Text-To-Voice
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. Install Dependencies Laravel (PHP)
+```bash
+composer install
+```
 
-## Contributing
+### 3. Persiapkan Environment Laravel
+Copy file konfigurasi `.env.example` menjadi `.env`, lalu generate APP_KEY:
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+*(Khusus pengguna Windows CMD/PowerShell, kamu bisa langsung copy paste file .env.example lalu rename menjadi .env)*
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 4. Install Dependencies Python
+Project ini menggunakan modul `edge-tts` dari Python. Install menggunakan `pip`:
+```bash
+pip install edge-tts
+```
+> **Penting:** Pastikan Python sudah terdaftar di `PATH` sistem operasi kamu (bisa diuji dengan perintah `python --version` di terminal).
 
-## Code of Conduct
+### 5. Buat Storage Link
+Aplikasi ini menyimpan audio hasil generate di dalam folder `storage`. Agar audio bisa diakses oleh public (ditampilkan di web), jalankan perintah ini:
+```bash
+php artisan storage:link
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 💻 Cara Menjalankan Aplikasi (Usage)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Jalankan development server bawaan Laravel:
+   ```bash
+   php artisan serve
+   ```
+2. Buka browser dan akses URL: **[http://localhost:8000](http://localhost:8000)** (atau sesuai dengan port yang tampil di terminal).
+3. **Cara pakai:**
+   - Masukkan naskah kamu atau klik salah satu **Template Naskah**.
+   - Sesuaikan **Kecepatan Bicara** dan **Nada Suara (Pitch)** di Pengaturan Suara. Tip: Untuk hasil ala announcer dramatis, gunakan suara *Ardi* dengan Kecepatan `-10%` dan Pitch `-15Hz`.
+   - Klik **Generate Voice**. Tunggu beberapa saat, dan audio siap untuk diputar & di-download.
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 📝 Catatan Penting
+- **Pembersihan Otomatis**: Secara default, setiap kali kamu menekan tombol *Generate*, aplikasi akan otomatis menghapus file audio MP3 yang sudah berumur lebih dari 1 jam. Hal ini menjaga agar folder storage tidak membengkak seiring waktu.
+- Error "No such file or directory": Jika muncul error bahwa Python tidak menemukan file, pastikan file `master_quiz_tts.py` berada persis di direktori *root* (paling luar) project ini, sejajar dengan file `artisan`.
+
+---
+*Dibuat dengan ⚡ oleh Class of Champions — Powered by Microsoft Azure Edge TTS*

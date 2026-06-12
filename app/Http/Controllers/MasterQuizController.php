@@ -67,7 +67,7 @@ class MasterQuizController extends Controller
         file_put_contents($configPath, json_encode($config, JSON_UNESCAPED_UNICODE));
 
         // Path to our Python helper script
-        $scriptPath = storage_path('app/master_quiz_tts.py');
+        $scriptPath = base_path('master_quiz_tts.py');
 
         // Build command — only file paths as arguments, no special characters
         $escapedScript = escapeshellarg($scriptPath);
